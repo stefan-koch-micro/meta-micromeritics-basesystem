@@ -1,0 +1,2 @@
+exec unclutter -idle 0.01 &
+exec chromium --kiosk --no-sandbox --start-fullscreen --fast --fast-start --disable-infobars --password-store=basic --app=http://localhost:8000
