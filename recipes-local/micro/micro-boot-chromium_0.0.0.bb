@@ -8,3 +8,6 @@ do_install() {
 }
 
 FILES_${PN} += "/home/root/.Xsession"
+
+DEPENDS += " micromeritics-mic-cpp "
+

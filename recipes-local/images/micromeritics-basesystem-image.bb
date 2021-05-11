@@ -7,6 +7,13 @@ inherit distro_features_check
 
 REQUIRED_DISTRO_FEATURES = "x11"
 
+DEPENDS += " cmake "
+DEPENDS += " python3 "
+DEPENDS += " python3-setuptools "
+DEPENDS += " boost "
+DEPENDS += " python3-distutils-extra "
+DEPENDS += " python3-distutils-extra-native "
+
 IMAGE_FEATURES += " \
     debug-tweaks \
     tools-profile \
