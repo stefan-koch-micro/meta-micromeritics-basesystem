@@ -1,2 +1,4 @@
 exec unclutter -idle 0.01 &
-exec chromium --kiosk --no-sandbox --start-fullscreen --fast --fast-start --disable-infobars --password-store=basic --app=http://localhost:80
+exec chromium --kiosk --no-sandbox --start-fullscreen --fast --fast-start --disable-infobars --password-store=basic \
+              --app=http://localhost:80 --touch-devices=$(/usr/local/bin/touchid.sh) --top-chrome-touch-ui --touch-events \
+              --enable-features=OverlayScrollbar
