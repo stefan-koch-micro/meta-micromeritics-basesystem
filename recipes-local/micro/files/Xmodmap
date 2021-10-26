@@ -1,0 +1,34 @@
+! Clear control and modifier keys.
+clear Control
+clear Mod1
+clear Mod2
+clear Mod3
+clear Mod4
+clear Mod5
+! Clear F1
+keycode 67 = Escape
+! Clear F2
+keycode 68 = Escape
+! Clear F3
+keycode 69 = Escape
+! Clear F4
+keycode 70 = Escape
+! Clear F5
+keycode 71 = Escape
+! Clear F6
+keycode 72 = Escape
+! Clear F7
+keycode 73 = Escape
+! Clear F8
+keycode 74 = Escape
+! Clear F9
+keycode 75 = Escape
+! Clear F10
+keycode 76 = Escape
+! Clear F11
+keycode 95 = Escape
+! Clear F12
+keycode 96 = Escape
+! Clear Help key. This needed to be assigned to Escape in order to
+! prevent this from opening a new chrome help window.
+keycode 146 = Escape
