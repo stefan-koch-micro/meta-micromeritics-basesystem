@@ -1,0 +1,12 @@
+[Unit]
+Description=Detect keyboards/mice
+Before=xserver-nodm.service
+
+[Service]
+ExecStart=python3 /usr/local/bin/micromeritics-kb-mouse-detection.py
+Restart=always
+Type=notify
+
+[Install]
+WantedBy=xserver-nodm.service
+RequiredBy=xserver-nodm.service
