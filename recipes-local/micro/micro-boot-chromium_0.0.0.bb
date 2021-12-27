@@ -1,5 +1,5 @@
 DESCRIPTION = "The recipe to automatically start chromium"
-SRC_URI = " file://40xinput_identify_touchscreen.sh file://80xmodmap.sh file://touchid.sh file://Xsession "
+SRC_URI = " file://40xinput_identify_touchscreen.sh file://80xmodmap.sh file://touchid.sh file://Xsession file://Xmodmap "
 LICENSE = "CLOSED"
 
 RDEPENDS_${PN} += " bash "

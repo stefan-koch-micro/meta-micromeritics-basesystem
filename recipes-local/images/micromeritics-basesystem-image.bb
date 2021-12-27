@@ -1,62 +1,44 @@
-DESCRIPTION = "A Micromeritics chromium desktop demo image."
-# copied from compulab-image-xfce.bb, but removed xfce from CORE_IMAGE_EXTRA_INSTALL
-LICENSE = "MIT"
+# copied from imx-image-full.bb
+# Copyright (C) 2015 Freescale Semiconductor
+# Copyright 2017-2019 NXP
+# Released under the MIT license (see COPYING.MIT for the terms)
 
-inherit core-image
-inherit distro_features_check
+require recipes-fsl/images/imx-image-multimedia.bb
 
-REQUIRED_DISTRO_FEATURES = "x11"
+inherit populate_sdk_qt5
 
-IMAGE_FEATURES += " \
-    debug-tweaks \
-    tools-profile \
-    splash \
-    nfs-server \
-    nfs-client \
-    tools-debug \
-    ssh-server-dropbear \
-    tools-testapps \
-    hwcodecs \
-    x11-base \
-    dev-pkgs \
+CONFLICT_DISTRO_FEATURES = "directfb"
+
+# Add machine learning for certain SoCs
+ML_PKGS                   ?= ""
+ML_STATICDEV              ?= ""
+ML_PKGS_mx8                = "packagegroup-imx-ml"
+ML_STATICDEV_mx8           = "tensorflow-lite-staticdev"
+ML_PKGS_mx8dxl             = ""
+ML_STATICDEV_mx8dxl        = ""
+ML_PKGS_mx8phantomdxl      = ""
+ML_STATICDEV_mx8phantomdxl = ""
+ML_PKGS_mx8mnlite          = ""
+ML_STATICDEV_mx8mnlite     = ""
+
+# Add opencv for i.MX GPU
+OPENCV_PKGS       ?= ""
+OPENCV_PKGS_imxgpu = " \
+    opencv-apps \
+    opencv-samples \
+    python3-opencv \
 "
 
-CORE_IMAGE_EXTRA_INSTALL += " \
-    packagegroup-core-x11 \
-    packagegroup-core-full-cmdline \
-    xf86-video-fbdev \
-    xrdb \
+IMAGE_INSTALL += " \
+    ${OPENCV_PKGS} \
+    ${ML_PKGS} \
+    packagegroup-qt5-imx \
+    tzdata \
 "
 
-#    packagegroup-xfce-base
-#    packagegroup-xfce-extended
-#    packagegroup-xfce-multimedia
-
-CORE_IMAGE_EXTRA_INSTALL += " \
-    packagegroup-tools-bluetooth \
-    packagegroup-fsl-tools-audio \
-    packagegroup-fsl-tools-gpu \
-    packagegroup-fsl-tools-gpu-external \
-    packagegroup-fsl-tools-testapps \
-    packagegroup-fsl-tools-benchmark \
-    packagegroup-fsl-gstreamer1.0 \
-    packagegroup-fsl-gstreamer1.0-full \
+TOOLCHAIN_TARGET_TASK += " \
+    ${ML_STATICDEV} \
 "
-
-# Expand the CORE_IMAGE_EXTRA_INSTALL
-# with the custom package list
-CORE_IMAGE_EXTRA_INSTALL += " \
-"
-
-# Uncoment lines: 51, 52 it for 4G image
-# $(( $(( 4096 - 12 )) << 10 ))
-# IMAGE_ROOTFS_SIZE = "4194304"
-# IMAGE_OVERHEAD_FACTOR = "1.0"
-
-# Uncoment lines: 56, 57 it for 8G image
-# $(( $(( 8192 - 12 )) << 10 ))
-# IMAGE_ROOTFS_SIZE = "8376320"
-# IMAGE_OVERHEAD_FACTOR = "1.0"
 
 IMAGE_INSTALL += " nginx "
 IMAGE_INSTALL += " chromium-x11 "
