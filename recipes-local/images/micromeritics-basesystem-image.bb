@@ -52,6 +52,10 @@ IMAGE_INSTALL += " gettext "
 IMAGE_INSTALL += " micro-install-fonts "
 IMAGE_INSTALL += " micromeritics-kb-mouse-detection "
 IMAGE_INSTALL += " xmessage "
+IMAGE_INSTALL += " groff "
+IMAGE_INSTALL += " ghostscript "
+IMAGE_INSTALL += " python3-matplotlib "
+
 # These are the packages needed by the target in the SDK
 TOOLCHAIN_TARGET_TASK_append = " boost boost-dev "
 # Use bitbake -e to find out the values of the variables. You can see that
