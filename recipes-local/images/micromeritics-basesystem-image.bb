@@ -56,6 +56,8 @@ IMAGE_INSTALL += " groff "
 IMAGE_INSTALL += " ghostscript "
 IMAGE_INSTALL += " python3-matplotlib "
 IMAGE_INSTALL += " cups "
+IMAGE_INSTALL += " bash gettext python3-core  boost "
+IMAGE_INSTALL += " program-instrument "
 
 # These are the packages needed by the target in the SDK
 TOOLCHAIN_TARGET_TASK_append = " boost boost-dev "

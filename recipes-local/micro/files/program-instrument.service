@@ -1,0 +1,10 @@
+[Unit]
+Description=Check to see if it should program instrument software
+Before=mic-chromium
+
+[Service]
+Type=exec
+ExecStart=/usr/local/bin/program-instrument.py
+
+[Install]
+WantedBy=multi-user.target
