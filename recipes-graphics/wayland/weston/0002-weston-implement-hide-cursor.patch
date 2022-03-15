@@ -1,0 +1,65 @@
+From f964b59c8af8505422cac79de2466e0a31702a0d Mon Sep 17 00:00:00 2001
+From: Marius Vlad <marius.vlad@collabora.com>
+Date: Fri, 13 Dec 2019 15:48:28 +0000
+Subject: [PATCH] input: Add hide-cursor option
+
+Add an option to hide the visible pointer cursor. This is primarily
+useful for embedded and touchscreen-driven systems, where a pointer
+device may be present (through various input/HID quirks), but there is
+no physical device to manipulate it.
+
+Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
+[daniels: Renamed to hide-cursor, squashed two commits.]
+Signed-off-by: Daniel Stone <daniels@collabora.com>
+---
+ compositor/main.c             | 4 ++++
+ include/libweston/libweston.h | 3 +++
+ libweston/input.c             | 3 +++
+ 3 files changed, 10 insertions(+)
+
+diff --git a/compositor/main.c b/compositor/main.c
+index 8eb8a470e..24bc90747 100644
+--- a/compositor/main.c
++++ b/compositor/main.c
+@@ -1088,6 +1088,10 @@ weston_compositor_init_config(struct weston_compositor *ec,
+ 		weston_compositor_enable_touch_calibrator(ec,
+ 						save_touch_device_calibration);
+ 
++	weston_config_section_get_bool(s, "hide-cursor", &ec->hide_cursor, false);
++	if (ec->hide_cursor)
++		weston_log("input: Hiding cursor pointer\n");
++
+ 	return 0;
+ }
+ 
+diff --git a/include/libweston/libweston.h b/include/libweston/libweston.h
+index dc54b170d..e603721a1 100644
+--- a/include/libweston/libweston.h
++++ b/include/libweston/libweston.h
+@@ -1098,6 +1098,9 @@ struct weston_compositor {
+ 	/* Whether to let the compositor run without any input device. */
+ 	bool require_input;
+ 
++	/* Do not show client cursors. */
++	bool hide_cursor;
++
+ 	/* Signal for a backend to inform a frontend about possible changes
+ 	 * in head status.
+ 	 */
+diff --git a/libweston/input.c b/libweston/input.c
+index 28dcb0b9a..0eac88221 100644
+--- a/libweston/input.c
++++ b/libweston/input.c
+@@ -2728,6 +2728,9 @@ pointer_set_cursor(struct wl_client *client, struct wl_resource *resource,
+ 		return;
+ 
+ 	if (!pointer->sprite || pointer->sprite->surface != surface) {
++		if (pointer->seat->compositor->hide_cursor)
++			return;
++
+ 		if (weston_surface_set_role(surface, "wl_pointer-cursor",
+ 					    resource,
+ 					    WL_POINTER_ERROR_ROLE) < 0)
+-- 
+GitLab
+

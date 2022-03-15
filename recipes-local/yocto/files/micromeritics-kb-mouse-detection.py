@@ -33,18 +33,16 @@ def find_keyboards_and_mice():
     logging.debug("Found: {}".format(ret))
     return ret
 
-def update_xorg_file(device, operation):
-    file = "/etc/default/xserver-nodm"
-    nocursor = " -nocursor "
+def update_weston_ini_file(device, operation):
+    if device != "mouse":
+        logging.error("Incorrectly attempting to update /etc/xdg/weston/weston.ini \
+                       file for device={},operation={}".format(device, operation))
+        return
+    file = "/etc/xdg/weston/weston.ini"
     if operation == "attached":
-        cmd = "sed -i -r 's/{remove}//g' {file}".format(
-            remove=nocursor, file=file)
+        cmd = "sed -i 's/hide-cursor=true/hide-cursor=false/g' {file}".format(file=file)
     elif operation == "detached":
-        cmd = "sed -i -r 's/{remove}//g ; s/{replace}/{replace_with}/g' {file}".format(
-            remove="-nocursor",
-            replace="ARGS=\"(.*)\"",
-            replace_with="ARGS=\"\\1{}\"".format(nocursor),
-            file=file)
+        cmd = "sed -i 's/hide-cursor=false/hide-cursor=true/g' {file}".format(file=file)
     else:
         logging.error("Unable to update {} because operation={} is unhandled.".format(file, operation))
         return
@@ -60,7 +58,7 @@ def update_xorg_file(device, operation):
 def do_db_ops(device, operation):
     import contextlib
     import sqlite3
-    with contextlib.closing(sqlite3.connect("/usr/lib/python3.7/site-packages/db.sqlite3")) as conn:
+    with contextlib.closing(sqlite3.connect("/usr/lib/python3.8/site-packages/db.sqlite3")) as conn:
         with conn:
             with contextlib.closing(conn.cursor()) as cursor:
                 if device == "keyboard":
@@ -75,7 +73,7 @@ def do_db_ops(device, operation):
 
 def do_linux_ops(device, operation):
     if device == "mouse":
-        update_xorg_file(device, operation)
+        update_weston_ini_file(device, operation)
 
 def device_attached(device):
     logging.info("{} attached".format(device))
