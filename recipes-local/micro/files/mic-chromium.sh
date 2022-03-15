@@ -13,7 +13,7 @@ sleep 1
 
 export DISPLAY=:0.0
 
-TOUCH_DEVICE_ID=$(xinput list --id-only "$(cat /home/root/.touchscreen)")
+TOUCH_DEVICE_ID=$(/usr/local/bin/touchid.sh)
 chromium --kiosk --no-sandbox --start-fullscreen --fast --fast-start --disable-infobars --password-store=basic \
          --app=http://localhost:80 --touch-devices=$TOUCH_DEVICE_ID --top-chrome-touch-ui --touch-events \
          --enable-features=OverlayScrollbar &
