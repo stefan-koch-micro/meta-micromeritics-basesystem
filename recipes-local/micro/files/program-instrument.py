@@ -79,8 +79,8 @@ def install(model, version):
 
     print("Installed:", inst_id, file=LOG)
 
-    # now that it is installed, allow the system to reboot to load the app normally.
-    os.system("reboot")
+    # now that it is installed, allow the system to restart the UI to load the app normally.
+    os.system("systemctl restart mic-chromium")
 
 
 def install_if_available():
