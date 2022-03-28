@@ -43,6 +43,7 @@ TOOLCHAIN_TARGET_TASK += " \
 IMAGE_INSTALL += " bash gettext python3-core  boost "
 IMAGE_INSTALL += " chromium-x11 "
 IMAGE_INSTALL += " cups "
+IMAGE_INSTALL += " dpkg "
 IMAGE_INSTALL += " gettext "
 IMAGE_INSTALL += " ghostscript "
 IMAGE_INSTALL += " groff "

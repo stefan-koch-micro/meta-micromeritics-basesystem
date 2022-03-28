@@ -1,0 +1,29 @@
+Note: Originally from the asus yocto build.
+These files are required to flash the Yocto Linux OS to an attached
+PE100A / IMX8P-IM-A using fastboot.
+
+We follow the recovery mode for programming the boards by booting into
+the serial download mode and then reflash the board from your host
+computer as follows.
+
+1. Power off the board and change the boot mode switches to serial download mode
+  (Switch 1 : Switch 2 : Switch 3 : Switch 4) = (OFF : ON : OFF : ON)
+2. Connect the USB Type-C cable to the USB Type-C ports on the board and your
+   host computer.
+3. Power on the board and the board should automatically boots into the
+   serial download mode.
+4. Make sure the driver is installed if the host computer is equipped with
+   Windows.
+5. Run the `flashall.cmd` script for Windows or `flashall.sh` for Linux in this
+   directory.
+6. When flashing is complete, your board will not boot up, because it stays in
+   serial download mode. So please power off the board and reset the boot mode
+   switch to eMMC mode then power on the board.
+   (Switch 1 : Switch 2 : Switch 3 : Switch 4) = (ON : OFF : OFF : ON)
+
+* The driver for Windows can installed from Microsoft Update automatically or
+  local driver package manually.
+
+* If you meet VCRuntime140.dll missing issue, please install Visual C++ Redistributable
+  for Visual Studio 2015
+  https://www.microsoft.com/zh-TW/download/details.aspx?id=48145
