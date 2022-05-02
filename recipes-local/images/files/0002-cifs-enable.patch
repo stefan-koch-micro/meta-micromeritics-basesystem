@@ -1,0 +1,53 @@
+From 14072b4ec84e6663899389050d62e4ef3eba69f5 Mon Sep 17 00:00:00 2001
+From: Stefan Koch <stefan.koch@micromeritics.com>
+Date: Fri, 6 May 2022 07:58:24 -0400
+Subject: [PATCH] SK: WIP: Trial cifs support.
+
+---
+ arch/arm64/configs/imx_v8_ima_defconfig    | 5 +++++
+ arch/arm64/configs/imx_v8_pe100a_defconfig | 5 +++++
+ arch/arm64/configs/imx_v8_pv100a_defconfig | 5 +++++
+ 3 files changed, 15 insertions(+)
+
+diff --git a/arch/arm64/configs/imx_v8_ima_defconfig b/arch/arm64/configs/imx_v8_ima_defconfig
+index 8bfa35feb332..190c78526dd3 100755
+--- a/arch/arm64/configs/imx_v8_ima_defconfig
++++ b/arch/arm64/configs/imx_v8_ima_defconfig
+@@ -1011,3 +1011,8 @@ CONFIG_CGROUP_NET_PRIO=y
+ CONFIG_RT_GROUP_SCHED=y
+ CONFIG_EXT3_FS_POSIX_ACL=y
+ CONFIG_EXT4_FS_SECURITY=y
++CONFIG_CIFS=m
++CONFIG_CIFS_STATS=y
++CONFIG_CIFS_WEAK_PW_HASH=y
++CONFIG_CIFS_XATTR=y
++CONFIG_CIFS_POSIX=y
+diff --git a/arch/arm64/configs/imx_v8_pe100a_defconfig b/arch/arm64/configs/imx_v8_pe100a_defconfig
+index 2b06bcfead5c..e148af38b555 100644
+--- a/arch/arm64/configs/imx_v8_pe100a_defconfig
++++ b/arch/arm64/configs/imx_v8_pe100a_defconfig
+@@ -1007,3 +1007,8 @@ CONFIG_CGROUP_NET_PRIO=y
+ CONFIG_RT_GROUP_SCHED=y
+ CONFIG_EXT3_FS_POSIX_ACL=y
+ CONFIG_EXT4_FS_SECURITY=y
++CONFIG_CIFS=m
++CONFIG_CIFS_STATS=y
++CONFIG_CIFS_WEAK_PW_HASH=y
++CONFIG_CIFS_XATTR=y
++CONFIG_CIFS_POSIX=y
+diff --git a/arch/arm64/configs/imx_v8_pv100a_defconfig b/arch/arm64/configs/imx_v8_pv100a_defconfig
+index 91e659749270..b1248f686160 100644
+--- a/arch/arm64/configs/imx_v8_pv100a_defconfig
++++ b/arch/arm64/configs/imx_v8_pv100a_defconfig
+@@ -1011,3 +1011,8 @@ CONFIG_RT_GROUP_SCHED=y
+ CONFIG_EXT3_FS_POSIX_ACL=y
+ CONFIG_EXT4_FS_SECURITY=y
+ CONFIG_SERIAL_LEDS=y
++CONFIG_CIFS=m
++CONFIG_CIFS_STATS=y
++CONFIG_CIFS_WEAK_PW_HASH=y
++CONFIG_CIFS_XATTR=y
++CONFIG_CIFS_POSIX=y
+-- 
+2.35.1
+

@@ -42,7 +42,10 @@ TOOLCHAIN_TARGET_TASK += " \
 
 IMAGE_INSTALL += " bash gettext python3-core  boost "
 IMAGE_INSTALL += " chromium-x11 "
+IMAGE_INSTALL += " cifs-utils "
+IMAGE_INSTALL += " colord "
 IMAGE_INSTALL += " cups "
+IMAGE_INSTALL += " cups-filters "
 IMAGE_INSTALL += " dpkg "
 IMAGE_INSTALL += " gettext "
 IMAGE_INSTALL += " ghostscript "
@@ -59,6 +62,9 @@ IMAGE_INSTALL += " python3-numpy "
 IMAGE_INSTALL += " python3-pip "
 IMAGE_INSTALL += " python3-pyusb "
 IMAGE_INSTALL += " python3-requests "
+IMAGE_INSTALL += " python3-xlsxwriter "
+IMAGE_INSTALL += " samba "
+IMAGE_INSTALL += " smbclient "
 IMAGE_INSTALL += " xmessage "
 
 # These are the packages needed by the target in the SDK

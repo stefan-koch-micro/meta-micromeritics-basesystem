@@ -167,6 +167,7 @@ else
     echo "MACHINE_FEATURES_remove += \"rtl8822 qca6174 ax200\"" >> conf/local.conf
 fi
 echo "EXTRA_IMAGE_FEATURES += \"package-management\"" >> conf/local.conf
+echo "DISTRO_FEATURES_append += \" polkit \"" >> conf/local.conf
 
 if [ ! -e $BUILD_DIR/conf/bblayers.conf.org ]; then
     cp $BUILD_DIR/conf/bblayers.conf $BUILD_DIR/conf/bblayers.conf.org
