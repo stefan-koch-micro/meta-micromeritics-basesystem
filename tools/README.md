@@ -34,7 +34,7 @@ The WSL distribution must be large enough (Sagar had to resize from 256 GB to
    directory (build_imx8mq-im-a_RELEASE) that is shared between the docker and
    build machines.  To do a clean build, but keep the yocto cache you can
    delete all the directories of the build dir except this one.
-8. `./mic-yocto-basesystem.sh` This builds the cross compiler for use
+8. `./mic-yocto-sdk.sh` This builds the cross compiler for use
    in developing applications.  This builds the
    ./build_imx8mq-pe100a_RELEASE/tmp/deploy/sdk/ directory that
    contains the sdk that can be installed on other linux development systems.

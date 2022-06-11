@@ -19,16 +19,26 @@ import glob
 import os
 import re
 import shutil
+import subprocess
 import time
-
-# Where the usb stick is mounted on the instrument.
-ROOT_USB = '/run/media/sda1/'
 
 # Where to store the information about what instrument has been installed.
 INST_FILE = '/etc/mic-instrument'
 
 # The file to log information to.
 LOG = open("/tmp/program-instrument.log", "a")
+
+def get_usb_drive_mounts():
+    "Return a list of paths for each usb drive mountd"
+    process = subprocess.Popen(['mount'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, _ = process.communicate()
+    re_usb = re.compile(r'^/dev/sd\w+\s+on\s+(?P<mount>[/\w]+).*')
+    ret = []
+    for line in stdout.decode('utf-8').splitlines():
+        match = re_usb.match(line)
+        if match:
+            ret.append(match.group('mount'))
+    return ret
 
 def has_instrument_app():
     """Check to see if instrument software has been installed."""
@@ -41,7 +51,7 @@ def wait_usb(max_time):
     """Keep looking for up to max_time seconds to see if a usb stick has been added."""
     for _ in range(max_time):
         time.sleep(1)
-        dirs = glob.glob(ROOT_USB+"*")
+        dirs = get_usb_drive_mounts()
         if len(dirs) != 0:
             break
 
@@ -50,37 +60,41 @@ def find_instrument_app_versions():
     stick.  This returns a dictionary with each key being the instrument name, and each value an
     array of versions."""
     all_inst = {}
-    for instrument_dir in glob.glob(ROOT_USB+"*"):
-        if not os.path.isdir(instrument_dir):
-            continue
-        model = os.path.basename(instrument_dir)
-        for version_dir in glob.glob(instrument_dir+'/v*'):
-            ver = os.path.basename(version_dir)
-            if not os.path.isdir(version_dir):
+    for path in get_usb_drive_mounts():
+        for instrument_dir in glob.glob(path+"/*"):
+            if not os.path.isdir(instrument_dir):
                 continue
-            if not re.match(r"^v(\d+)\.(\d+).(\d+)$", ver):
-                continue
-            if len(glob.glob(version_dir+'/*.deb')) == 0:
-                continue
-            if not os.path.isfile(version_dir+'/mic-instrument'):
-                continue
-            all_inst.setdefault(model, []).append(ver)
+            model = os.path.basename(instrument_dir)
+            for version_dir in glob.glob(instrument_dir+'/v*'):
+                ver = os.path.basename(version_dir)
+                if not os.path.isdir(version_dir):
+                    continue
+                if not re.match(r"^v(\d+)\.(\d+).(\d+)$", ver):
+                    continue
+                if len(glob.glob(version_dir+'/*.deb')) == 0:
+                    continue
+                if not os.path.isfile(version_dir+'/mic-instrument'):
+                    continue
+                all_inst.setdefault(model, []).append(ver)
     return all_inst
 
 def install(model, version):
     """Install the instrument software (all the .deb files) for model and version."""
 
-    debs = glob.glob(ROOT_USB+model+'/'+version+"/*.deb")
-    cmd = "dpkg -i " + " ".join(debs)
-    inst_id = model + " " + version
-    os.system(cmd)
+    for path in get_usb_drive_mounts():
+        debs = glob.glob(path+'/'+model+'/'+version+"/*.deb")
+        if len(debs) == 0:
+            continue
+        cmd = "dpkg -i " + " ".join(debs)
+        inst_id = model + " " + version
+        os.system(cmd)
 
-    shutil.copyfile(ROOT_USB+model+'/'+version+"/mic-instrument", INST_FILE)
+        shutil.copyfile(path+model+'/'+version+"/mic-instrument", INST_FILE)
 
-    print("Installed:", inst_id, file=LOG)
+        print("Installed:", inst_id, file=LOG)
 
-    # now that it is installed, allow the system to restart the UI to load the app normally.
-    os.system("systemctl restart mic-chromium")
+        # now that it is installed, allow the system to restart the UI to load the app normally.
+        os.system("systemctl restart mic-chromium")
 
 
 def install_if_available():
