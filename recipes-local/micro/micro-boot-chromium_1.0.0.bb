@@ -1,5 +1,12 @@
 DESCRIPTION = "The recipe to automatically start chromium"
-SRC_URI = " file://80xmodmap.sh file://touchid.sh file://mic-chromium.sh file://mic-chromium.service file://Xmodmap "
+SRC_URI = "\
+  file://80xmodmap.sh \
+  file://touchid.sh \
+  file://mic-chromium.sh \
+  file://mic-chromium.service \
+  file://no-password-management.json \
+  file://Xmodmap \
+"
 LICENSE = "CLOSED"
 
 RDEPENDS_${PN} += " bash xinput "
@@ -20,6 +27,8 @@ do_install() {
   install -m 0755 ${WORKDIR}/mic-chromium.sh ${D}/usr/local/bin/mic-chromium.sh
   install -d ${D}/${systemd_unitdir}/system
   install -m 0644 ${WORKDIR}/mic-chromium.service ${D}/${systemd_unitdir}/system
+  install -d ${D}/etc/chromium/policies/managed
+  install -m 0644 ${WORKDIR}/no-password-management.json ${D}/etc/chromium/policies/managed/no-password-management.json
 }
 
 FILES_${PN} += "\
@@ -28,5 +37,6 @@ FILES_${PN} += "\
   /home/root/.Xmodmap \
   /usr/local/bin/touchid.sh \
   /usr/local/bin/mic-chromium.sh \
+  /etc/chromium/policies/managed/no-password-management.json \
   ${systemd_unitdir}/system/mic-chromium.service \
 "
