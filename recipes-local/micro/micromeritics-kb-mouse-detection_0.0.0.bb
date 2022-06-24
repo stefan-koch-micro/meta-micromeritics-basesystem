@@ -11,13 +11,21 @@ inherit systemd
 SYSTEMD_AUTO_ENABLE = "enable"
 SYSTEMD_SERVICE_${PN} = "micromeritics-kb-mouse-detection.service"
 
-SRC_URI_append = " file://micromeritics-kb-mouse-detection.service file://micromeritics-kb-mouse-detection.py "
+SRC_URI_append = "\
+  file://micromeritics-kb-mouse-detection.service \
+  file://micromeritics-kb-mouse-detection.py \
+  file://micromeritics-config.ini \
+"
+
 FILES_${PN} += "${systemd_unitdir}/system/micromeritics-kb-mouse-detection.service"
 FILES_${PN} += "/usr/local/bin/micromeritics-kb-mouse-detection.py"
+FILES_${PN} += "/etc/micromeritics-config.ini"
 
 do_install_append() {
   install -d ${D}/usr/local/bin
   install -m 0644 ${WORKDIR}/micromeritics-kb-mouse-detection.py ${D}/usr/local/bin
   install -d ${D}/${systemd_unitdir}/system
   install -m 0644 ${WORKDIR}/micromeritics-kb-mouse-detection.service ${D}/${systemd_unitdir}/system
+  install -d ${D}/etc
+  install -m 0644 ${WORKDIR}/micromeritics-config.ini ${D}/etc
 }
