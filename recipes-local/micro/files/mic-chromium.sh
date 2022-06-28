@@ -13,9 +13,16 @@ sleep 1
 
 export DISPLAY=:0.0
 
-TOUCH_DEVICE_ID=$(/usr/local/bin/touchid.sh)
-chromium --kiosk --no-sandbox --start-fullscreen --fast --fast-start --disable-infobars --password-store=basic \
-         --app=http://localhost:80 --touch-devices=$TOUCH_DEVICE_ID --top-chrome-touch-ui --touch-events \
-         --enable-features=OverlayScrollbar &
+# see if there was a mouse connected at starup, and if not, set the touch behavior.
+grep -i -e "mouse *= *true" /etc/micromeritics-config.ini > /dev/nul
+if [ $? -eq 0 ] ; then
+    TOUCH_PARAM=""
+else
+    TOUCH_DEVICE_ID=$(/usr/local/bin/touchid.sh)
+    TOUCH_PARAM="--touch-devices=$TOUCH_DEVICE_ID --touch-events"
+fi
 
+chromium --kiosk --no-sandbox --start-fullscreen --fast --fast-start --disable-infobars --password-store=basic \
+         --app=http://localhost:80 --top-chrome-touch-ui $TOUCH_PARAM \
+         --enable-features=OverlayScrollbar &
 sleep 5
