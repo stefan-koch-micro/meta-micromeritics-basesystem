@@ -40,6 +40,10 @@ TOOLCHAIN_TARGET_TASK += " \
     ${ML_STATICDEV} \
 "
 
+IMAGE_LINGUAS = "en-ag en-au en-bw en-ca en-dk en-gb en-hk en-ie en-il en-in en-ng en-nz en-ph en-sc en-sg en-us en-za en-zm zh-cn zh-hk zh-sg zh-tw fr-be fr-ca fr-ch fr-fr fr-lu de-at de-be de-ch de-de de-it de-li de-lu"
+GLIBC_GENERATE_LOCALES ?= "en_AG.utfi en_AU.utf8 en_BW.utf8 en_CA.utf8 en_DK.utf8 en_GB.utf8 en_HK.utf8 en_IE.utf8 en_IL.utf8 en_IN.utf8 en_NG.utf8 en_NZ.utf8 en_PH.utf8 en_SC.utf8 en_SG.utf8 en_US.utf8 en_ZA.utf8 en_ZM.utf8 zh_CN.utf8 zh_HK.utf8 zh_SG.utf8 zh_TW.utf8 fr_BE.utf8 fr_CA.utf8 fr_CH.utf8 fr_FR.utf8 fr_LU.utf8 de_AT.utf8 de_BE.utf8 de_CH.utf8 de_DE.utf8 de_IT.utf8 de_LI.utf8 de_LU.utf8"
+IMAGE_INSTALL += " glibc-utils localedef "
+
 IMAGE_INSTALL += " bash gettext python3-core  boost "
 IMAGE_INSTALL += " chromium-x11 "
 IMAGE_INSTALL += " cifs-utils "
@@ -57,8 +61,10 @@ IMAGE_INSTALL += " micromeritics-kb-mouse-detection "
 IMAGE_INSTALL += " nginx "
 IMAGE_INSTALL += " numlockx "
 IMAGE_INSTALL += " program-instrument "
+IMAGE_INSTALL += " python3-babel "
 IMAGE_INSTALL += " python3-django "
 IMAGE_INSTALL += " python3-django-cors-headers "
+IMAGE_INSTALL += " python3-icu "
 IMAGE_INSTALL += " python3-matplotlib "
 IMAGE_INSTALL += " python3-numpy "
 IMAGE_INSTALL += " python3-pip "
