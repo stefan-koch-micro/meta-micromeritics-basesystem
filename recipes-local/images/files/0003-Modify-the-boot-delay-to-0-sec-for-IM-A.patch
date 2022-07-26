@@ -1,0 +1,28 @@
+From 62fa447a857fd6c7c07b81554ac0317ea5a3a5d9 Mon Sep 17 00:00:00 2001
+From: singhome1_lee <singhome1_lee@asus.com>
+Date: Mon, 25 Jul 2022 11:38:36 +0800
+Subject: [PATCH] Modify the boot delay to 0 sec for IM-A.
+
+Change-Id: If761147d8e9ff35d557a588f4be8e7114c2089e7
+---
+ configs/imx8mq_ima_defconfig | 1 +
+ 1 file changed, 1 insertion(+)
+ mode change 100644 => 100755 configs/imx8mq_ima_defconfig
+
+diff --git a/configs/imx8mq_ima_defconfig b/configs/imx8mq_ima_defconfig
+old mode 100644
+new mode 100755
+index 84c0c572f3..faed2c9d7b
+--- a/configs/imx8mq_ima_defconfig
++++ b/configs/imx8mq_ima_defconfig
+@@ -129,6 +129,7 @@ CONFIG_USB_DWC3=y
+ CONFIG_USB_DWC3_GADGET=y
+ CONFIG_OF_LIBFDT_OVERLAY=y
+ CONFIG_BCB_SUPPORT=y
++CONFIG_BOOTDELAY=0
+ 
+ CONFIG_VIDEO_IMX8M_DCSS=y
+ CONFIG_VIDEO_IMX8M_HDMI=y
+-- 
+2.25.1
+
