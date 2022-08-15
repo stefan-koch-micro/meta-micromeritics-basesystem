@@ -28,6 +28,13 @@ chromium --kiosk --no-sandbox --start-fullscreen --fast --fast-start --disable-i
          --enable-features=OverlayScrollbar &
 sleep 5
 
+# turn on pulse audio for the system.  This allows audio for the help video files.
+pulseaudio --start --log-target=syslog
+# connect to all known bluetooth devices.  In particular this connected to the trusted bluetooth speaker.
+for device in `bluetoothctl devices | awk '{print $2}'` ; do
+    bluetoothctl connect $device
+done
+
 # make sure that the num-lock is pressed.  This ensures that the values of the
 # MettlerTolelo mass balance are properly interpreted.  For some reason this
 # must be run after chromium is started, otherwise it does not work.
