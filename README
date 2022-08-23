@@ -1,41 +1,30 @@
 This README file contains information on the contents of the meta-micromeritics-basesystem layer.
 
-Please see the corresponding sections below for details.
+This layer defines the Micromeritics basesystem for the asus imx sbc.  This is the software that is
+needed to install a specific instrument application onto the board.  It contains all the
+Micromeritics specific functionality that we need for the basesystem.  The basesystem itself does
+not include any specific application, but it does include the functionality to automatically install
+an application (if none are installed, and if the properly fomratted usb stick is in place)
 
-Dependencies
-============
-
-  URI: <first dependency>
-  branch: <branch name>
-
-  URI: <second dependency>
-  branch: <branch name>
-
-  .
-  .
-  .
-
-Patches
-=======
-
-Please submit any patches against the meta-micromeritics-basesystem layer to the xxxx mailing list (xxxx@zzzz.org)
-and cc: the maintainer:
-
-Maintainer: XXX YYYYYY <xxx.yyyyyy@zzzzz.com>
-
-Table of Contents
-=================
-
-  I. Adding the meta-micromeritics-basesystem layer to your build
- II. Misc
+The main recipe is recipes-local/images/micromeritics-basesystem-image.bb.  This contains all the
+base packages that are expected by all instrument applications.
 
 
-I. Adding the meta-micromeritics-basesystem layer to your build
-=================================================
+It also installs all the micromeritics specific packages that are expected to be installed.  These
+are in recipes-local/micro.  Currently these have:
 
-Run 'bitbake-layers add-layer meta-micromeritics-basesystem'
+1. mic-boot-chromium: a systemd service to start the mic-chromium in kiosk mode at boot time.  (The
+   instrument application provides the content, so the boot block will give a not found error if the
+   application is not installed.)
+2. program-instrument: a custom service that runs at bootup that installs the instrument application
+   if it is available on the usb stick, and there is no instrument app installed already.
+3. micromeritics-kb-mouse-detection: does the keyboard and mouse detection that tells mic-chromium
+   how to startup. 
 
-II. Misc
-========
+The other recipes-local directories are for recipes or versions that are not available in the core
+yocto packages provided, but that we wanted/needed for the application.
 
---- replace with specific information about the meta-micromeritics-basesystem layer ---
+This setup allows ssh login to root with the password of "gE0R6!4". 
+
+Finally, in the tools directory there are scripts to help with the build process.  See the README.md
+there for more details.
