@@ -44,8 +44,27 @@ TOOLCHAIN_TARGET_TASK += " \
 inherit extrausers
 EXTRA_USERS_PARAMS = "usermod -P 'gE0R6!4' root;"
 
-IMAGE_LINGUAS = "en-ag en-au en-bw en-ca en-dk en-gb en-hk en-ie en-il en-in en-ng en-nz en-ph en-sc en-sg en-us en-za en-zm zh-cn zh-hk zh-sg zh-tw fr-be fr-ca fr-ch fr-fr fr-lu de-at de-be de-ch de-de de-it de-li de-lu"
-GLIBC_GENERATE_LOCALES ?= "en_AG.utfi en_AU.utf8 en_BW.utf8 en_CA.utf8 en_DK.utf8 en_GB.utf8 en_HK.utf8 en_IE.utf8 en_IL.utf8 en_IN.utf8 en_NG.utf8 en_NZ.utf8 en_PH.utf8 en_SC.utf8 en_SG.utf8 en_US.utf8 en_ZA.utf8 en_ZM.utf8 zh_CN.utf8 zh_HK.utf8 zh_SG.utf8 zh_TW.utf8 fr_BE.utf8 fr_CA.utf8 fr_CH.utf8 fr_FR.utf8 fr_LU.utf8 de_AT.utf8 de_BE.utf8 de_CH.utf8 de_DE.utf8 de_IT.utf8 de_LI.utf8 de_LU.utf8"
+IMAGE_LINGUAS = "\
+en-ag en-au en-bw en-ca en-dk en-gb en-hk en-ie en-il \
+en-in en-ng en-nz en-ph en-sc en-sg en-us en-za en-zm \
+zh-cn zh-hk zh-sg zh-tw \
+fr-be fr-ca fr-ch fr-fr fr-lu \
+de-at de-be de-ch de-de de-it de-li de-lu \
+it-ch it-it \
+ja-jp \
+ko-kr \
+es-ar es-cl es-co es-cu es-do es-gt es-pa es-us es-ve \
+"
+GLIBC_GENERATE_LOCALES ?= "\
+en_AG.utfi en_AU.utf8 en_BW.utf8 en_CA.utf8 en_DK.utf8 en_GB.utf8 en_HK.utf8 en_IE.utf8 en_IL.utf8 \
+en_IN.utf8 en_NG.utf8 en_NZ.utf8 en_PH.utf8 en_SC.utf8 en_SG.utf8 en_US.utf8 en_ZA.utf8 en_ZM.utf8 \
+zh_CN.utf8 zh_HK.utf8 zh_SG.utf8 zh_TW.utf8 fr_BE.utf8 fr_CA.utf8 fr_CH.utf8 fr_FR.utf8 fr_LU.utf8 \
+de_AT.utf8 de_BE.utf8 de_CH.utf8 de_DE.utf8 de_IT.utf8 de_LI.utf8 de_LU.utf8 \
+it-CH.utf8 it-IT.utf8 \
+ja-JP.utf8 \
+ko-KR.utf8 \
+es-AR.utf8 es-CL.utf8 es-CO.utf8 es-CU.utf8 es-DO.utf8 es-GT.utf8 es-PA.utf8 es-US.utf8 es-VE.utf8 \
+"
 IMAGE_INSTALL += " glibc-utils localedef "
 
 IMAGE_INSTALL += " bash gettext python3-core  boost "
