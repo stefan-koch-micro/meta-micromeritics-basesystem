@@ -89,7 +89,7 @@ def install(model, version):
         inst_id = model + " " + version
         os.system(cmd)
 
-        shutil.copyfile(path+model+'/'+version+"/mic-instrument", INST_FILE)
+        shutil.copyfile(path+'/'+model+'/'+version+"/mic-instrument", INST_FILE)
 
         print("Installed:", inst_id, file=LOG)
 
