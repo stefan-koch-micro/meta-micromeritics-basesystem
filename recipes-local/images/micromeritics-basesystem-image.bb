@@ -97,6 +97,10 @@ IMAGE_INSTALL += " python3-xlsxwriter "
 IMAGE_INSTALL += " samba "
 IMAGE_INSTALL += " smbclient "
 IMAGE_INSTALL += " xmessage "
+IMAGE_INSTALL += " source-han-sans-kr-fonts "
+IMAGE_INSTALL += " source-han-sans-jp-fonts "
+IMAGE_INSTALL += " source-han-sans-cn-fonts "
+IMAGE_INSTALL += " source-han-sans-tw-fonts "
 
 # These are the packages needed by the target in the SDK
 TOOLCHAIN_TARGET_TASK_append = " boost boost-dev "
