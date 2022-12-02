@@ -3,13 +3,10 @@
 
   <default sync-j="2"/>
 
-  <remote fetch="file:///mnt/k/git/yocto" name="micro-yocto"/>
-  <remote fetch="file:///mnt/k/git/" name="micro-git"/>
-  <remote fetch="file:///mnt/k/software-core-assets/mic-python-fw" name="mic-python-fw"/>
-  <remote fetch="file:///mnt/k/software-core-assets/mic-vcmfc-fw" name="mic-vcmfc-fw"/>
+  <remote fetch="ssh://git@gitlab.micusa.com:/software" name="micro"/>
 
   <!-- The mic specific repositories -->
-  <project name="meta-micromeritics-basesystem" path="sources/meta-micromeritics-basesystem" remote="micro-yocto" revision="master">
+  <project name="meta-micromeritics-basesystem" path="sources/meta-micromeritics-basesystem" remote="micro" revision="master">
     <linkfile dest="docker_setup.sh" src="tools/docker_setup.sh"/>
     <linkfile dest="docker_run.sh" src="tools/docker_run.sh"/>
     <linkfile dest="mic-setup-release.sh" src="tools/mic-setup-release.sh"/>
@@ -18,8 +15,8 @@
     <linkfile dest="mic-yocto-basesystem.sh" src="tools/mic-yocto-basesystem.sh"/>
     <linkfile dest="mic-yocto-sdk.sh" src="tools/mic-yocto-sdk.sh"/>
   </project>
-  <project name="mic-python-fw" path="mic-python-fw" remote="mic-python-fw" revision="master"/>
-  <project name="mic-vcmfc-fw" path="mic-vcmfc-fw" remote="mic-vcmfc-fw" revision="master"/>
+  <project name="mic-python-fw" path="mic-python-fw" remote="micro" revision="9c9770a74cbe9a8583176799fd7d8d3145ae7f02"/>
+  <project name="mic-vcmfc-fw" path="mic-vcmfc-fw" remote="micro" revision="413c46cc5d8c1d31e6266313bfce94e5b57aabc1"/>
 
   <!-- The below was taken from: https://github.com/ASUS-IPC/manifest/blob/main/asus-pe100a-5.10.9-1.0.3.xml  -->
   <!-- under advice from Asus -->

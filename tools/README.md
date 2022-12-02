@@ -19,7 +19,7 @@ The WSL distribution must be large enough (Sagar had to resize from 256 GB to
 
 ### Do a full clean build
 1. Setup a build DIRECTORY
-2. `repo init -u /mnt/k/git/yocto/meta-micromeritics-basesystem/ -b master -m yocto-repo.xml`
+2. `repo init -u git@gitlab.micusa.com:/software/meta-micromeritics-basesystem -b master -m yocto-repo.xml`
 3. `repo sync`
 5. `./docker_setup.sh`
 6. `./docker_run.sh`
