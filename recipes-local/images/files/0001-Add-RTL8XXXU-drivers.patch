@@ -1,0 +1,55 @@
+From ffdc4782a52c524e6735fb97578dc715e638248c Mon Sep 17 00:00:00 2001
+From: Kunyang_Fan <Kunyang_Fan@asus.com>
+Date: Wed, 7 Dec 2022 11:54:57 +0800
+Subject: [PATCH] Add RTL8XXXU drivers
+
+Signed-off-by: Kunyang_Fan <Kunyang_Fan@asus.com>
+Change-Id: I68cb480893cbe320bb9ff2433a2b380bb75fd2e4
+---
+ arch/arm64/configs/imx_v8_ima_defconfig    | 2 ++
+ arch/arm64/configs/imx_v8_pe100a_defconfig | 2 ++
+ arch/arm64/configs/imx_v8_pv100a_defconfig | 2 ++
+ 3 files changed, 6 insertions(+)
+
+diff --git a/arch/arm64/configs/imx_v8_ima_defconfig b/arch/arm64/configs/imx_v8_ima_defconfig
+index 6a4b53436a82..c338ffd37a15 100755
+--- a/arch/arm64/configs/imx_v8_ima_defconfig
++++ b/arch/arm64/configs/imx_v8_ima_defconfig
+@@ -353,6 +353,8 @@ CONFIG_IWLWIFI=m
+ CONFIG_IWLMVM=m
+ CONFIG_HOSTAP=y
+ CONFIG_RTL8822CE=m
++CONFIG_RTL8XXXU=m
++CONFIG_RTL8XXXU_UNTESTED=y
+ CONFIG_WL18XX=m
+ CONFIG_WLCORE_SDIO=m
+ CONFIG_XEN_NETDEV_BACKEND=m
+diff --git a/arch/arm64/configs/imx_v8_pe100a_defconfig b/arch/arm64/configs/imx_v8_pe100a_defconfig
+index 47630792bc21..849ed797d30c 100644
+--- a/arch/arm64/configs/imx_v8_pe100a_defconfig
++++ b/arch/arm64/configs/imx_v8_pe100a_defconfig
+@@ -353,6 +353,8 @@ CONFIG_IWLWIFI=m
+ CONFIG_IWLMVM=m
+ CONFIG_HOSTAP=y
+ CONFIG_RTL8822CE=m
++CONFIG_RTL8XXXU=m
++CONFIG_RTL8XXXU_UNTESTED=y
+ CONFIG_WL18XX=m
+ CONFIG_WLCORE_SDIO=m
+ CONFIG_XEN_NETDEV_BACKEND=m
+diff --git a/arch/arm64/configs/imx_v8_pv100a_defconfig b/arch/arm64/configs/imx_v8_pv100a_defconfig
+index 46f0025b1086..c2b58e7dc5d2 100644
+--- a/arch/arm64/configs/imx_v8_pv100a_defconfig
++++ b/arch/arm64/configs/imx_v8_pv100a_defconfig
+@@ -353,6 +353,8 @@ CONFIG_IWLWIFI=m
+ CONFIG_IWLMVM=m
+ CONFIG_HOSTAP=y
+ CONFIG_RTL8822CE=m
++CONFIG_RTL8XXXU=m
++CONFIG_RTL8XXXU_UNTESTED=y
+ CONFIG_WL18XX=m
+ CONFIG_WLCORE_SDIO=m
+ CONFIG_XEN_NETDEV_BACKEND=m
+-- 
+2.17.1
+
