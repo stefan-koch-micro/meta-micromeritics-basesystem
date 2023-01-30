@@ -10,8 +10,6 @@ server {
     root /srv/www;
     index index.html;
 
-    error_log /var/log/nginx.log warn;
-
     location /rest {
        proxy_pass http://localhost:8000;
     }

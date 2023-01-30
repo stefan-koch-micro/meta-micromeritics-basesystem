@@ -1,0 +1,36 @@
+# Nginx logrotate is not packaged for the distrtibutuion
+/var/log/nginx/* {
+    missingok
+    daily
+    rotate 7
+}
+
+/var/log/samba/* {
+    missingok
+    daily
+    rotate 7
+}
+
+/var/log/kern.log {
+    missingok
+    weekly
+    rotate 4
+}
+
+/var/log/syslog {
+    missingok
+    weekly
+    rotate 4
+}
+
+/var/log/auth.log {
+    missingok
+    weekly
+    rotate 4
+}
+
+/var/log/messages {
+    missingok
+    weekly
+    rotate 4
+}
