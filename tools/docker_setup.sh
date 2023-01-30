@@ -58,21 +58,6 @@ sed -i s/nobranch=1/branch=main/g ./iotedge-cli_1.1.3.bb
 popd
 
 ## ------------------
-## TODO: should  be part of repo command, but I don't know how to do this.
-pushd linux-imx
-if [[ `git rev-parse --abbrev-ref HEAD` != "yocto-3.2-imx_8m" ]]; then
-  git branch yocto-3.2-imx_8m asus/yocto-3.2-imx_8m
-  git checkout yocto-3.2-imx_8m
-fi
-popd
-pushd uboot-imx
-if [[ `git rev-parse --abbrev-ref HEAD` != "yocto-3.2-imx_8m" ]]; then
-  git branch yocto-3.2-imx_8m asus/yocto-3.2-imx_8m
-  git checkout yocto-3.2-imx_8m
-fi
-popd
-
-## ------------------
 # Build the image.
 DOCKER_IMAGE="mic-asus/yocto-3.2-builder:latest"
 docker build \
