@@ -1,11 +1,18 @@
 # Nginx logrotate is not packaged for the distrtibutuion
-/var/log/nginx/* {
+
+/var/log/nginx/error.log {
     missingok
     daily
     rotate 7
 }
 
-/var/log/samba/* {
+/var/log/samba/log.nmbd {
+    missingok
+    daily
+    rotate 7
+}
+
+/var/log/samba/log.smbd {
     missingok
     daily
     rotate 7
