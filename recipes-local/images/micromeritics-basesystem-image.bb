@@ -103,6 +103,38 @@ IMAGE_INSTALL += " source-han-sans-jp-fonts "
 IMAGE_INSTALL += " source-han-sans-cn-fonts "
 IMAGE_INSTALL += " source-han-sans-tw-fonts "
 
+# the following are from 2.0.20 meta-asus-imx/dynamic-layers/qt5-layer/recipes-fsl/images/imx-image-full.bbappend
+# The following were removed: docker docker-ce vim python3-docker-compose
+IMAGE_INSTALL += " \
+      asus-overlay \
+      gptfdisk \
+      exfat-utils \
+      fuse-exfat \
+      ntfs-3g \
+      gpsd \
+      networkmanager \
+      networkmanager-nmcli \
+      networkmanager-nmtui \
+      iotedge-daemon \
+      iotedge-cli \
+      ca-certificates \
+      canopensocket \
+      can-utils-j1939 \
+      whiptail \
+      glibc-utils \
+      glibc-gconv-utf-16 \
+      localedef \
+      cmake \
+      packagegroup-core-buildessential \
+      ppp \
+      libqmi \
+      libmbim \
+      edgetpu \
+      mraa \
+      modemmanager \
+      opkg \
+  "
+
 # These are the packages needed by the target in the SDK
 TOOLCHAIN_TARGET_TASK_append = " boost boost-dev "
 # Use bitbake -e to find out the values of the variables. You can see that
