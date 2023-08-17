@@ -3,7 +3,7 @@
 
   <default sync-j="2"/>
 
-  <remote fetch="ssh://git@gitlab.micusa.com:/software" name="micro"/>
+  <remote fetch="ssh://git@github.com:/stefan-koch-micro" name="micro"/>
 
   <!-- The mic specific repositories -->
   <project name="meta-micromeritics-basesystem" path="sources/meta-micromeritics-basesystem" remote="micro" revision="master">
