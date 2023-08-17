@@ -15,8 +15,6 @@
     <linkfile dest="mic-yocto-basesystem.sh" src="tools/mic-yocto-basesystem.sh"/>
     <linkfile dest="mic-yocto-sdk.sh" src="tools/mic-yocto-sdk.sh"/>
   </project>
-  <project name="mic-python-fw" path="mic-python-fw" remote="micro" revision="9c9770a74cbe9a8583176799fd7d8d3145ae7f02"/>
-  <project name="mic-vcmfc-fw" path="mic-vcmfc-fw" remote="micro" revision="413c46cc5d8c1d31e6266313bfce94e5b57aabc1"/>
 
   <!-- The below was taken from: https://github.com/ASUS-IPC/manifest/blob/main/asus-pe100a-5.10.9-2.0.20.xml  -->
   <!-- under advice from Asus -->

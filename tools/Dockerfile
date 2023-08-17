@@ -35,13 +35,6 @@ RUN groupadd -g $groupid $username && \
 ENV HOME=/home/$username
 ENV USER=$username
 
-# besides the standard setup, copy the mic python and vcmfc framework files into the image and
-# install them. (Note that these are placed there with the docker_setup.sh script.)
-COPY mic-python-fw-1.1.0.tar.gz /tmp
-RUN pip install /tmp/mic-python-fw*.tar.gz
-COPY mic-vcmfc-fw-1.0.8.tar.gz /tmp
-RUN pip install /tmp/mic-vcmfc-fw*.tar.gz
-
 RUN git config --global url.https://git.alsa-project.org/http/.insteadOf git://git.alsa-project.org/
 RUN git config --global url.https://github.com/.insteadOf git://github.com/
 RUN git config --global url.https://code.qt.io/.insteadOf git://code.qt.io/

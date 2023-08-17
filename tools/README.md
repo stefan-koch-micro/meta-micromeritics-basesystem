@@ -11,8 +11,6 @@ Make sure the correct drives are mounted (or at least available).
 If you don't have access to the network drive copying these and
 keeping them up to date will also work. In particular you need
 k:/git/yocto, k:/git/yocto/meta-micromeritics-basesystem,
-k:/software-core-assets/mic-python-fw/mic-python-fw, and
-k:/software-core-assets/mic-vcmfc-fw/mic-vcmfc-fw.
 
 The WSL distribution must be large enough (Sagar had to resize from 256 GB to
 456 GB).  This link describes how to do that: https://docs.microsoft.com/en-us/windows/wsl/vhd-size

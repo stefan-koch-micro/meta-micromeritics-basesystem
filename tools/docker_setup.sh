@@ -38,25 +38,6 @@ else
     fi
 fi
 
-# Make the python and vmcfc mic framework pip files available to the docker builder. Copy them
-# into the docker directory as that is where they can be accessed.
-pushd mic-python-fw
-python3 setup.py sdist
-cp dist/*.tar.gz ../sources/meta-micromeritics-basesystem/tools
-popd
-pushd mic-vcmfc-fw
-python3 setup.py sdist
-cp dist/*.tar.gz ../sources/meta-micromeritics-basesystem/tools
-popd
-# Fix bitbake errors caused by recipes pulling from a non-existent 'master' branch instead
-# of the existing "main" branch.
-pushd ./sources/meta-iotedge/recipes-core/iotedge-daemon
-sed -i s/nobranch=1/branch=main/g ./iotedge-daemon_1.1.15.bb
-popd
-pushd ./sources/meta-iotedge/recipes-core/iotedge-cli
-sed -i s/nobranch=1/branch=main/g ./iotedge-cli_1.1.15.bb
-popd
-
 ## ------------------
 # Build the image.
 DOCKER_IMAGE="mic-asus/yocto-3.2-builder:latest"
