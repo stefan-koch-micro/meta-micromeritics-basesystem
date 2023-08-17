@@ -1,0 +1,101 @@
+From 9c837713a39b787a0db3b0c5b715bd135cd18862 Mon Sep 17 00:00:00 2001
+From: singhome1_lee <singhome1_lee@asus.com>
+Date: Tue, 15 Aug 2023 11:01:58 +0800
+Subject: [PATCH] =?UTF-8?q?LF-8337=20thermal:=20qoriq:=20configure=20the?=
+ =?UTF-8?q?=20monitoring=20site=20select=20accordin=E2=80=A6=20=E2=80=A6g?=
+ =?UTF-8?q?=20to=20actual=20use?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+When selecting all monitoring sites, reserved bits of TMR on i.MX8MQ are
+written, which results in stuck TMU. So change to set the monitoring
+site select according to temperature sensor site actually used.
+
+devm_thermal_of_zone_register() will call tmu_get_temp. To prevent
+returning bogus data, when TMU is not enabled for monitoring, return
+-EAGAIN.
+
+Signed-off-by: Alice Guo <alice.guo@nxp.com>
+Reviewed-by: Ye Li <ye.li@nxp.com>
+Acked-by: Jason Liu <jason.hui.liu@nxp.com>
+
+Change-Id: I4d1eef478cf4e18fe4773e0ddf4980e1ca1f02be
+---
+ drivers/thermal/qoriq_thermal.c | 30 ++++++++++++++++++++----------
+ 1 file changed, 20 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/thermal/qoriq_thermal.c b/drivers/thermal/qoriq_thermal.c
+index bd4f9380e5d1..8b33472db581 100644
+--- a/drivers/thermal/qoriq_thermal.c
++++ b/drivers/thermal/qoriq_thermal.c
+@@ -34,7 +34,6 @@
+ #define TMR_DISABLE	0x0
+ #define TMR_ME		0x80000000
+ #define TMR_ALPF	0x0c000000
+-#define TMR_MSITE_ALL	GENMASK(15, 0)
+ 
+ #define REGS_TMTMIR	0x008	/* Temperature measurement interval Register */
+ #define TMTMIR_DEFAULT	0x0000000f
+@@ -118,6 +117,11 @@ static int tmu_get_temp(void *p, int *temp)
+ 	 * within sensor range. TEMP is an 9 bit value representing
+ 	 * temperature in KelVin.
+ 	 */
++
++	regmap_read(qdata->regmap, REGS_TMR, &val);
++	if (!(val & TMR_ME))
++		return -EAGAIN;
++
+ 	if (regmap_read_poll_timeout(qdata->regmap,
+ 				     REGS_TRITSR(qsensor->id),
+ 				     val,
+@@ -181,17 +185,9 @@ static const struct thermal_zone_of_device_ops tmu_tz_ops = {
+ static int qoriq_tmu_register_tmu_zone(struct device *dev,
+ 				       struct qoriq_tmu_data *qdata)
+ {
+-	int id;
++	int id, sites = 0;
+ 	const struct thermal_trip *trip;
+ 
+-	if (qdata->ver == TMU_VER1) {
+-		regmap_write(qdata->regmap, REGS_TMR,
+-			     TMR_MSITE_ALL | TMR_ME | TMR_ALPF);
+-	} else {
+-		regmap_write(qdata->regmap, REGS_V2_TMSR, TMR_MSITE_ALL);
+-		regmap_write(qdata->regmap, REGS_TMR, TMR_ME | TMR_ALPF_V2);
+-	}
+-
+ 	for (id = 0; id < SITES_MAX; id++) {
+ 		struct thermal_zone_device *tzd;
+ 		struct qoriq_sensor *sensor = &qdata->sensor[id];
+@@ -211,6 +207,12 @@ static int qoriq_tmu_register_tmu_zone(struct device *dev,
+ 			return ret;
+ 		}
+ 
++		if (qdata->ver == TMU_VER1)
++			sites |= 0x1 << (15 - id);
++		else
++			sites |= 0x1 << id;
++
++		printk("qoriq_tmu_register_tmu_zone sensor->id=%d  site=%d qdata->ver=%d\n", sensor->id, sites, qdata->ver );
+ 		sensor->tzd = tzd;
+ 
+ 		if (devm_thermal_add_hwmon_sysfs(tzd))
+@@ -247,6 +249,14 @@ static int qoriq_tmu_register_tmu_zone(struct device *dev,
+ 		}
+ 	}
+ 
++	if (sites) {
++		if (qdata->ver == TMU_VER1) {
++			regmap_write(qdata->regmap, REGS_TMR, TMR_ME | TMR_ALPF | sites);
++		} else {
++			regmap_write(qdata->regmap, REGS_V2_TMSR, sites);
++			regmap_write(qdata->regmap, REGS_TMR, TMR_ME | TMR_ALPF_V2);
++		}
++	}
+ 	return 0;
+ }
+ 
+-- 
+2.25.1
+
