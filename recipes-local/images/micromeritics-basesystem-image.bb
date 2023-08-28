@@ -69,6 +69,7 @@ IMAGE_INSTALL += " glibc-utils localedef "
 
 IMAGE_INSTALL += " bash gettext python3-core  boost "
 IMAGE_INSTALL += " chromium-x11 "
+IMAGE_INSTALL += " cifs "
 IMAGE_INSTALL += " cifs-utils "
 IMAGE_INSTALL += " colord "
 IMAGE_INSTALL += " cups "
