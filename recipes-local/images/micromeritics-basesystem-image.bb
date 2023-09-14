@@ -102,6 +102,7 @@ IMAGE_INSTALL += " source-han-sans-kr-fonts "
 IMAGE_INSTALL += " source-han-sans-jp-fonts "
 IMAGE_INSTALL += " source-han-sans-cn-fonts "
 IMAGE_INSTALL += " source-han-sans-tw-fonts "
+IMAGE_INSTALL += " imagemagick "
 
 # the following are from 2.0.20 meta-asus-imx/dynamic-layers/qt5-layer/recipes-fsl/images/imx-image-full.bbappend
 # The following were removed: docker docker-ce vim python3-docker-compose
