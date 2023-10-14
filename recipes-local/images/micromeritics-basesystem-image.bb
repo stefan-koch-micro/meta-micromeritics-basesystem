@@ -36,8 +36,8 @@ IMAGE_INSTALL += " \
     tzdata \
 "
 
+# SK: REMOVE ${ML_STATICDEV}
 TOOLCHAIN_TARGET_TASK += " \
-    ${ML_STATICDEV} \
 "
 
 # From: https://stackoverflow.com/a/32277691
@@ -103,6 +103,7 @@ IMAGE_INSTALL += " source-han-sans-jp-fonts "
 IMAGE_INSTALL += " source-han-sans-cn-fonts "
 IMAGE_INSTALL += " source-han-sans-tw-fonts "
 IMAGE_INSTALL += " imagemagick "
+IMAGE_INSTALL += " libharu "
 
 # the following are from 2.0.20 meta-asus-imx/dynamic-layers/qt5-layer/recipes-fsl/images/imx-image-full.bbappend
 # The following were removed: docker docker-ce vim python3-docker-compose
