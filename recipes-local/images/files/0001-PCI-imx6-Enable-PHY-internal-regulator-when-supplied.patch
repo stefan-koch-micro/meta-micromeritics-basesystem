@@ -1,0 +1,54 @@
+From decd95efa4d25f9b3c5cb8a18a8e0ca1821fc1c8 Mon Sep 17 00:00:00 2001
+From: singhome1_lee <singhome1_lee@asus.com>
+Date: Wed, 18 Oct 2023 11:44:54 +0800
+Subject: [PATCH] PCI: imx6: Enable PHY internal regulator when supplied >3V
+
+The i.MX8MQ PCIe PHY needs 1.8V in default but can be supplied by either a
+1.8V or a 3.3V regulator.
+
+The "vph-supply" DT property tells us which external regulator supplies the
+PHY. If that regulator supplies anything over 3V, enable the PHY's internal
+ 3.3V-to-1.8V regulator.
+
+Change-Id: Iec1ebda5432f55f5ed8a48c898f84d19827a1b56
+---
+ drivers/pci/controller/dwc/pci-imx6.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
+index 4da25cde9016..9731c9ccd53f 100644
+--- a/drivers/pci/controller/dwc/pci-imx6.c
++++ b/drivers/pci/controller/dwc/pci-imx6.c
+@@ -45,7 +45,9 @@
+ #define IMX8MQ_PCIE_L1SUB_CTRL1_REG_EN_MASK	0xf
+ #define IMX8MQ_GPR_PCIE_REF_USE_PAD		BIT(9)
+ #define IMX8MQ_GPR_PCIE_CLK_REQ_OVERRIDE_EN	BIT(10)
+-#define IMX8MQ_GPR_PCIE_CLK_REQ_OVERRIDE	BIT(11)
++#define IMX8MQ_GPR_PCIE_CLK_REQ_OVERRIDE	 BIT(11)
++#define IMX8MQ_GPR_PCIE_VREG_BYPASS 	BIT(12)
++
+ #define IMX8MQ_GPR12_PCIE2_CTRL_DEVICE_TYPE	GENMASK(11, 8)
+ #define IMX8MQ_PCIE2_BASE_ADDR			0x33c00000
+ #define IMX8_HSIO_PCIEB_BASE_ADDR		0x5f010000
+@@ -1583,6 +1585,18 @@ static void imx6_pcie_init_phy(struct imx6_pcie *imx6_pcie)
+ 				   imx6_pcie_grp_offset(imx6_pcie),
+ 				   IMX8MQ_GPR_PCIE_REF_USE_PAD,
+ 				   IMX8MQ_GPR_PCIE_REF_USE_PAD);
++
++		/*
++		 * Regarding the datasheet, the PCIE_VPH is suggested
++		 * to be 1.8V. If the PCIE_VPH is supplied by 3.3V, the
++		 * VREG_BYPASS should be cleared to zero.
++		 */
++		//if (imx6_pcie->vph &&
++		  //  regulator_get_voltage(imx6_pcie->vph) > 3000000)
++			regmap_update_bits(imx6_pcie->iomuxc_gpr,
++					   imx6_pcie_grp_offset(imx6_pcie),
++					   IMX8MQ_GPR_PCIE_VREG_BYPASS,
++					   0);
+ 		break;
+ 	case IMX8MP:
+ 	case IMX8MP_EP:
+-- 
+2.25.1
+
