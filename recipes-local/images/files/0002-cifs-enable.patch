@@ -43,3 +43,17 @@ index 46f0025b1086..89327d952f39 100644
 +CONFIG_CIFS_XATTR=y
 +CONFIG_CIFS_POSIX=y
 
+diff --git a/arch/arm64/configs/imx_v8_ima_defconfig b/arch/arm64/configs/imx_v8_ima_defconfig
+index 46f0025b1086..89327d952f39 100644
+--- a/arch/arm64/configs/imx_v8_pv100a_defconfig
++++ b/arch/arm64/configs/imx_v8_pv100a_defconfig
+@@ -1019,3 +1019,8 @@ CONFIG_RT_GROUP_SCHED=y
+ CONFIG_EXT3_FS_POSIX_ACL=y
+ CONFIG_EXT4_FS_SECURITY=y
+ CONFIG_SERIAL_LEDS=y
++CONFIG_CIFS=m
++CONFIG_CIFS_STATS=y
++CONFIG_CIFS_WEAK_PW_HASH=y
++CONFIG_CIFS_XATTR=y
++CONFIG_CIFS_POSIX=y
+
