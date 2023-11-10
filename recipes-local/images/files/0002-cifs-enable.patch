@@ -3,57 +3,31 @@ From: Stefan Koch <stefan.koch@micromeritics.com>
 Date: Fri, 6 May 2022 07:58:24 -0400
 Subject: [PATCH] SK: WIP: Trial cifs support.
 
-diff --git a/arch/arm64/configs/imx_v8_defconfig b/arch/arm64/configs/imx_v8_defconfig
-index 3b3503f07484..6c15dafcc0b2 100644
---- a/arch/arm64/configs/imx_v8_defconfig
-+++ b/arch/arm64/configs/imx_v8_defconfig
-@@ -946,3 +946,8 @@ CONFIG_CORESIGHT=y
- CONFIG_CORESIGHT_LINK_AND_SINK_TMC=y
- CONFIG_CORESIGHT_SOURCE_ETM4X=y
- CONFIG_MEMTEST=y
-+CONFIG_CIFS=m
-+CONFIG_CIFS_STATS=y
-+CONFIG_CIFS_WEAK_PW_HASH=y
-+CONFIG_CIFS_XATTR=y
-+CONFIG_CIFS_POSIX=y
-diff --git a/arch/arm64/configs/imx_v8_pe100a_defconfig b/arch/arm64/configs/imx_v8_pe100a_defconfig
-index 47630792bc21..582ee6e24a1c 100644
---- a/arch/arm64/configs/imx_v8_pe100a_defconfig
-+++ b/arch/arm64/configs/imx_v8_pe100a_defconfig
-@@ -1008,3 +1008,8 @@ CONFIG_CGROUP_NET_PRIO=y
+From da6bbd0eb956e3caa36842f74b0319b77fbeae82 Mon Sep 17 00:00:00 2001
+From: singhome1_lee <singhome1_lee@asus.com>
+Date: Mon, 6 Nov 2023 11:23:58 +0800
+Subject: [PATCH] enable cifs
+
+Change-Id: I155d004dc834cfa1d9ccb42449a662861e550a83
+---
+ arch/arm64/configs/imx_v8_ima_defconfig | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/arch/arm64/configs/imx_v8_ima_defconfig b/arch/arm64/configs/imx_v8_ima_defconfig
+index 3bc28daf400c..2af2160176fd 100755
+--- a/arch/arm64/configs/imx_v8_ima_defconfig
++++ b/arch/arm64/configs/imx_v8_ima_defconfig
+@@ -1013,3 +1013,9 @@ CONFIG_CGROUP_NET_PRIO=y
  CONFIG_RT_GROUP_SCHED=y
  CONFIG_EXT3_FS_POSIX_ACL=y
  CONFIG_EXT4_FS_SECURITY=y
++
 +CONFIG_CIFS=m
 +CONFIG_CIFS_STATS=y
 +CONFIG_CIFS_WEAK_PW_HASH=y
 +CONFIG_CIFS_XATTR=y
 +CONFIG_CIFS_POSIX=y
-diff --git a/arch/arm64/configs/imx_v8_pv100a_defconfig b/arch/arm64/configs/imx_v8_pv100a_defconfig
-index 46f0025b1086..89327d952f39 100644
---- a/arch/arm64/configs/imx_v8_pv100a_defconfig
-+++ b/arch/arm64/configs/imx_v8_pv100a_defconfig
-@@ -1012,3 +1012,8 @@ CONFIG_RT_GROUP_SCHED=y
- CONFIG_EXT3_FS_POSIX_ACL=y
- CONFIG_EXT4_FS_SECURITY=y
- CONFIG_SERIAL_LEDS=y
-+CONFIG_CIFS=m
-+CONFIG_CIFS_STATS=y
-+CONFIG_CIFS_WEAK_PW_HASH=y
-+CONFIG_CIFS_XATTR=y
-+CONFIG_CIFS_POSIX=y
-
-diff --git a/arch/arm64/configs/imx_v8_ima_defconfig b/arch/arm64/configs/imx_v8_ima_defconfig
-index 46f0025b1086..89327d952f39 100644
---- a/arch/arm64/configs/imx_v8_pv100a_defconfig
-+++ b/arch/arm64/configs/imx_v8_pv100a_defconfig
-@@ -1019,3 +1019,8 @@ CONFIG_RT_GROUP_SCHED=y
- CONFIG_EXT3_FS_POSIX_ACL=y
- CONFIG_EXT4_FS_SECURITY=y
- CONFIG_SERIAL_LEDS=y
-+CONFIG_CIFS=m
-+CONFIG_CIFS_STATS=y
-+CONFIG_CIFS_WEAK_PW_HASH=y
-+CONFIG_CIFS_XATTR=y
-+CONFIG_CIFS_POSIX=y
+\ No newline at end of file
+-- 
+2.25.1
 
